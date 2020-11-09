@@ -32,12 +32,12 @@ def main():
     advertiser_id = int(input('Enter an adv_id'))
     offer_ids = [int(x) for x in input("Enter offer_ids\n").split(',')]
     
-    
+    #connect to BQ via default-login token
     credentials = google.oauth2.credentials.Credentials(
         'a29.A0AfH6SMDgL2ePU-NjQI4XsY56JNkG4HmGCTyu4qS4375bo9TyvPNxg9RebXmEThDbLwSzuUO1N1_dS5LJ8MTGWRmiPzzyyOp7v3sESmGtwVM70PYcj-kgMZ3-H2zPTB1NMd0-yCK9wpdSS1djIDRa4o7xW7RzqExZmgGrF2sSweQ')
     project_id = "al-bi-bq-prod"
 
-
+    #query the data
     sql = f"""
           select
           MP, event_name, round(100*(state_count / total),2) as percentage 
@@ -117,10 +117,11 @@ def main():
             order by total_payout desc
     """
 
-
+    #examples for testing
     #(76771, 76772)
     #10415
     #'2020-10-25' and '2020-10-30'
+
     df1 = pandas_gbq.read_gbq(sql, project_id=project_id)
     df2 = pandas_gbq.read_gbq(sql2, project_id=project_id)
     df2['click_date'] = df2['click_date'].dt.tz_localize(None)
