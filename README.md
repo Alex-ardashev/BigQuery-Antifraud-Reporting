@@ -1,2 +1,5 @@
 # BigQuery-Antifraud-Reporting
-Auntifraud reporting automatization
+Automatized my job responsibilities:)
+* Connection to BigQuery
+* Data quering
+* Report formation
