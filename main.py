@@ -134,19 +134,19 @@ def main():
             timestamp_diff (date,click_date, second) as timediff,
             CASE 
             WHEN timestamp_diff (date,click_date, second) >=  0 
-            AND timestamp_diff (date,click_date, second) < 10 THEN '<10secs'
+            AND timestamp_diff (date,click_date, second) < 10 THEN '1_<10secs'
             WHEN timestamp_diff (date,click_date, second) >=  10 
-            AND timestamp_diff (date,click_date, second) < 60 THEN '<1min'
+            AND timestamp_diff (date,click_date, second) < 60 THEN '2_<1min'
             WHEN timestamp_diff (date,click_date, second) >=  60 
-            AND timestamp_diff (date,click_date, second) < 300 THEN '<5min'
+            AND timestamp_diff (date,click_date, second) < 300 THEN '3_<5min'
             WHEN timestamp_diff (date,click_date, second) >=  300 
-            AND timestamp_diff (date,click_date, second) < 600 THEN '<10min'
+            AND timestamp_diff (date,click_date, second) < 600 THEN '4_<10min'
             WHEN timestamp_diff (date,click_date, second) >=  600 
-            AND timestamp_diff (date,click_date, second) < 1800 THEN '<30min'
+            AND timestamp_diff (date,click_date, second) < 1800 THEN '5_<30min'
             WHEN timestamp_diff (date,click_date, second) >=  1800 
-            AND timestamp_diff (date,click_date, second) < 3600 THEN '<1hr'
+            AND timestamp_diff (date,click_date, second) < 3600 THEN '6_<1hr'
             WHEN timestamp_diff (date,click_date, second) >=  3600
-            AND timestamp_diff (date,click_date, second) < 86400 THEN '<24hr'
+            AND timestamp_diff (date,click_date, second) < 86400 THEN '7_<24hr'
             ELSE 'more than 24h' END as buckets, 
             session_user_ip, conversion_user_ip, payout, revenue, query_parameters_device_detail, email, carrier, browser,brand, device_type, os_version, language, region, country, city, android_id, adv1, adv2, adv3, adv4, adv5, is_view_through, is_scrub, is_cookie_based, idfa, google_ad_id, sub1
             
@@ -167,19 +167,19 @@ def main():
             timestamp_diff (date,click_date, second) as timediff,
             CASE 
             WHEN timestamp_diff (date,click_date, second) >=  0 
-            AND timestamp_diff (date,click_date, second) < 10 THEN '<10secs'
+            AND timestamp_diff (date,click_date, second) < 10 THEN '1_<10secs'
             WHEN timestamp_diff (date,click_date, second) >=  10 
-            AND timestamp_diff (date,click_date, second) < 60 THEN '<1min'
+            AND timestamp_diff (date,click_date, second) < 60 THEN '2_<1min'
             WHEN timestamp_diff (date,click_date, second) >=  60 
-            AND timestamp_diff (date,click_date, second) < 300 THEN '<5min'
+            AND timestamp_diff (date,click_date, second) < 300 THEN '3_<5min'
             WHEN timestamp_diff (date,click_date, second) >=  300 
-            AND timestamp_diff (date,click_date, second) < 600 THEN '<10min'
+            AND timestamp_diff (date,click_date, second) < 600 THEN '4_<10min'
             WHEN timestamp_diff (date,click_date, second) >=  600 
-            AND timestamp_diff (date,click_date, second) < 1800 THEN '<30min'
+            AND timestamp_diff (date,click_date, second) < 1800 THEN '5_<30min'
             WHEN timestamp_diff (date,click_date, second) >=  1800 
-            AND timestamp_diff (date,click_date, second) < 3600 THEN '<1hr'
+            AND timestamp_diff (date,click_date, second) < 3600 THEN '6_<1hr'
             WHEN timestamp_diff (date,click_date, second) >=  3600
-            AND timestamp_diff (date,click_date, second) < 86400 THEN '<24hr'
+            AND timestamp_diff (date,click_date, second) < 86400 THEN '7_<24hr'
             ELSE 'more than 24h' END as buckets, 
             session_user_ip, conversion_user_ip, payout, revenue, query_parameters_device_detail, email, carrier, browser,brand, device_type, os_version, language, region, country, city, android_id, adv1, adv2, adv3, adv4, adv5, is_view_through, is_scrub, is_cookie_based, idfa, google_ad_id, sub1
             
@@ -218,13 +218,13 @@ def main():
     df6 = pd.pivot_table(df4, values = 'timediff', index=['network_affiliate_id'], columns=['buckets'], aggfunc=np.count_nonzero)
 
     # Create a Pandas Excel writer using XlsxWriter as the engine.
-    writer = pd.ExcelWriter('/Users/user/Downloads/pandas_multiple.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('/Users/user/Downloads/report 2020.xlsx', engine='xlsxwriter')
 
     # Write each dataframe to a different worksheet.
     df5.to_excel(writer, sheet_name='Conversions')
     df4.to_excel(writer, sheet_name='Installs')
     df3.to_excel(writer, sheet_name='metrics_table')
-    df6.to_excel(writer, sheet_name= 'CTIT')
+    df6.to_excel(writer, sheet_name='CTIT')
     df2.to_excel(writer, sheet_name='full_report')
     df1.to_excel(writer, sheet_name='In-app_activity_behavior')
 
