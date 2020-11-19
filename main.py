@@ -27,16 +27,18 @@ def create_date():
 
 def main():
 
-    date1 = create_date()
-    date2 = create_date()
-    #affiliate_id = [int(x) for x in input("Enter affiliate_ids\n").split(',')]
-    advertiser_id = int(input('Enter an adv_id'))
-    offer_ids = [int(x) for x in input("Enter offer_ids\n").split(',')]
-    
     #connect to BQ via default-login token
     credentials = google.oauth2.credentials.Credentials(
         'a29.A0AfH6SMDgL2ePU-NjQI4XsY56JNkG4HmGCTyu4qS4375bo9TyvPNxg9RebXmEThDbLwSzuUO1N1_dS5LJ8MTGWRmiPzzyyOp7v3sESmGtwVM70PYcj-kgMZ3-H2zPTB1NMd0-yCK9wpdSS1djIDRa4o7xW7RzqExZmgGrF2sSweQ')
     project_id = "al-bi-bq-prod"
+
+
+    date1 = create_date()
+    date2 = create_date()
+    #affiliate_id = [int(x) for x in input("Enter affiliate_ids\n").split(',')]
+    advertiser_id = int(input('Enter an adv_id\n'))
+    offer_ids = [x for x in input("Enter offer_ids\n").split(',')]
+
 
     #query the data
     sql = f"""
