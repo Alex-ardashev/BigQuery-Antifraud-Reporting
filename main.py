@@ -38,7 +38,7 @@ def main():
     date2 = create_date()
     #affiliate_id = [int(x) for x in input("Enter affiliate_ids\n").split(',')]
     advertiser_id = int(input('Enter an adv_id\n'))
-  #  offer_ids = [x for x in input("Enter offer_ids\n").split(',')]
+    offer_ids = [x for x in input("Enter offer_ids\n").split(',')]
 
 
     #query the data
@@ -53,7 +53,7 @@ def main():
           
           WHERE
         event_name != 'app_open' and event_name != 'rejected_install'
-          
+          AND network_offer_id in {'(%s)' % ', '.join([str(i) for i in offer_ids])}
           AND network_advertiser_id = {advertiser_id} 
           AND _partitiondate between '{date1}' and '{date2}'
           GROUP by 2,1
@@ -88,7 +88,7 @@ def main():
             WHERE
             _partitionDATE BETWEEN '{date1}' and '{date2}'
             AND network_advertiser_id = {advertiser_id}
-            
+            AND network_offer_id in {'(%s)' % ', '.join([str(i) for i in offer_ids])}
             AND conversion_status = 'approved'  
             AND event_name != 'app_open'
             AND event_name != 'rejected_install'
@@ -125,7 +125,7 @@ def main():
             WHERE
             _partitionDATE BETWEEN '{date1}' and '{date2}'
             AND advertiser_id = {advertiser_id}
-            
+            AND offer_id in {'(%s)' % ', '.join([str(i) for i in offer_ids])}
             group by 1,2,3
             having approved_installs >0 and total_clicks >0 and total_payout > 100
             order by total_payout desc
@@ -159,7 +159,7 @@ def main():
             WHERE
             _partitionDATE BETWEEN '{date1}' and '{date2}'
             AND network_advertiser_id = {advertiser_id}
-           
+            AND network_offer_id in {'(%s)' % ', '.join([str(i) for i in offer_ids])}
             AND conversion_status = 'approved'  
             AND network_offer_payout_revenue_id = 0
     """
@@ -192,7 +192,7 @@ def main():
             WHERE
             _partitionDATE BETWEEN '{date1}' and '{date2}'
             AND network_advertiser_id = {advertiser_id}
-           
+            AND network_offer_id in {'(%s)' % ', '.join([str(i) for i in offer_ids])}
             AND conversion_status = 'approved'  
             AND payout != 0
     """
